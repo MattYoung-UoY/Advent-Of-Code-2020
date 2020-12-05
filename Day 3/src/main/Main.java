@@ -31,9 +31,9 @@ public class Main {
 		start = System.nanoTime();
 	}
 	
-	private static long slope(String[] input, int slopeX, int slopeY) {
+	private static int slope(String[] input, int slopeX, int slopeY) {
 		int x = slopeX % input[0].length();
-		long trees = 0;
+		int trees = 0;
 		
 		for(int y = slopeY; y < input.length; y+=slopeY) {
 			if(input[y].charAt(x) == '#') trees++;
