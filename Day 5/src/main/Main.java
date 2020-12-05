@@ -20,26 +20,24 @@ public class Main {
 		
 		// 7 chars for row
 		// 3 chars for column
-
-		int max = Arrays.stream(input).map(s -> seatID(s)).max(Integer::compare).orElse(-1);
 		
-		System.out.println(max);
+		List<Integer> ids = Arrays.stream(input).map(Main::seatID).collect(Collectors.toList());
 		
-		System.out.println("---------------------------------------");
+		int max = ids.stream().max(Integer::compare).orElse(-1);
 		
-		List<Integer> ids = Arrays.stream(input).map(s -> seatID(s)).collect(Collectors.toList());
+		System.out.println("P1: " + max);
 		
 		for(int i = 0; i < max; i++) {
 			if(!ids.contains(i)) {
 				if(ids.contains(i+1) && ids.contains(i-1)) {
-					System.out.println(i);
+					System.out.println("P2: " + i);
 				}
 			}
 		}
 	}
 
 	private static int seatID(String seatBSP) {
-		int row = binSearch(seatBSP.substring(0, 6), 0, 127, 'F', 'B');
+		int row = binSearch(seatBSP.substring(0, 7), 0, 127, 'F', 'B');
 		int col = binSearch(seatBSP.substring(7), 0, 7, 'L', 'R');
 		return (row * 8) + col;
 	}
