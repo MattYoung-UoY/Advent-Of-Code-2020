@@ -1,0 +1,45 @@
+package main.parse;
+
+import java_cup.runtime.Symbol;
+import java.util.*;
+import main.Bag;
+
+parser code
+{:
+
+	public List<Bag> bags = new ArrayList<>();
+	private Map<String, Integer> subBags = new HashMap<>();
+
+	private void addSubBag(String s, int i){
+		subBags.put(s, i);
+	}
+	
+	private void addBag(String s){
+		bags.add(new Bag(s, new HashMap<>(subBags)));
+		subBags.clear();
+	}
+
+    public void syntax_error(Symbol s) {
+        System.err.println("syntax_error " + s.sym );
+        System.out.println("compiler has detected a syntax error at line " + s.left 
+        + " column " + s.right);
+    }
+
+:}
+
+terminal ASSIGN, BAG, LST_COMP, STM_END, NUM, END_BAG;
+
+non terminal inp, stm, subBag, bagLst;
+
+start with inp;
+
+inp ::= stm inp
+	|	stm;
+
+stm ::= BAG:b1 ASSIGN bagLst STM_END {:addBag((String) b1);:}
+	|	BAG:b1 ASSIGN END_BAG STM_END {:addBag((String) b1);:};
+
+bagLst ::= subBag
+	|	subBag LST_COMP bagLst;
+
+subBag ::= NUM:n BAG:b {:addSubBag((String) b, Integer.parseInt((String) n));:};
