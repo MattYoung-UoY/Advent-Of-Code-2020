@@ -18,6 +18,7 @@ public class Main {
 	public static void main(String[] args) {
 		parse("src/main/input.txt");
 		List<Bag> bags = parser.bags;
+		System.out.println(bags);
 	}
 
 	private static void parse(String filename) {
