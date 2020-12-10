@@ -15,5 +15,13 @@ public class Bag {
 	public String toString() {
 		return "{" + name + ", " + subBags + "}";
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Map<String, Integer> getSubBags() {
+		return subBags;
+	}
 	
 }
