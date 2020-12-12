@@ -9,6 +9,8 @@ public class Main {
 	private static String[] current, next;
 	
 	public static void main(String[] args) {
+		long start = System.currentTimeMillis();
+		
 		String[] input = null;
 		try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/main/input.txt")))) {
 			input = reader.lines().toArray(String[]::new);
@@ -18,6 +20,9 @@ public class Main {
 		}
 		current = input.clone();
 		next = input.clone();
+		
+		System.out.println("Loading took " + (System.currentTimeMillis() - start) + "ms");
+		start = System.currentTimeMillis();
 		
 		iterate();
 		while(!isStable(current, next)) iterate();
@@ -31,6 +36,9 @@ public class Main {
 		}
 		
 		System.out.println(occSeats);
+
+		System.out.println("Pt1 took " + (System.currentTimeMillis() - start) + "ms");
+		start = System.currentTimeMillis();
 		
 		/////////////////////////////////////////////////
 
@@ -50,6 +58,7 @@ public class Main {
 		
 		System.out.println(occSeats);
 		
+		System.out.println("Pt2 took " + (System.currentTimeMillis() - start) + "ms");
 	}
 	
 	private static boolean isStable(String[] grid1, String[] grid2) {
